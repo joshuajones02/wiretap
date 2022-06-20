@@ -1,12 +1,12 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using AForge.Video.DirectShow;
-using AForge.Video;
-using System.Threading;
-
-namespace WireTap
+﻿namespace WireTap
 {
+    using AForge.Video;
+    using AForge.Video.DirectShow;
+    using System;
+    using System.Drawing;
+    using System.Drawing.Imaging;
+    using System.Threading;
+
     public class WebCam
     {
         private static string captureFile = "";
@@ -24,7 +24,7 @@ namespace WireTap
             videoSource.SignalToStop();
         }
 
-        private static void video_Screenshot(object sender, NewFrameEventArgs eventArgs)
+        public static void video_Screenshot(object sender, NewFrameEventArgs eventArgs)
         {
             Console.WriteLine("Capturing video screenshot...");
             // get new frame
@@ -34,7 +34,5 @@ namespace WireTap
             captureFile = "";
             videoSource.NewFrame -= new NewFrameEventHandler(video_Screenshot);
         }
-
-
     }
 }

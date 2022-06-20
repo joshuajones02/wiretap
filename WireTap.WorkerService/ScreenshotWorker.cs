@@ -15,6 +15,8 @@ namespace WireTap.WorkerService
             _logger = logger;
         }
 
+        public static string[] Arguments = new[] { "capture_keystrokes" };
+
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             _logger.LogInformation("ScreenshotWorker running at: {time}", DateTimeOffset.Now);

