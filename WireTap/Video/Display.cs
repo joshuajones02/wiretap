@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace WireTap
 {
-    class Display
+    public class Display
     {
         private static string captureFile = "";
         private static VideoCaptureDevice videoSource;

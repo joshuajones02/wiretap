@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace WireTap
 {
-    class WebCam
+    public class WebCam
     {
         private static string captureFile = "";
         private static VideoCaptureDevice videoSource;

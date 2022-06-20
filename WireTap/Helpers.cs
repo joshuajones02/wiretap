@@ -1,10 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Runtime;
-
-namespace WireTap
+﻿namespace WireTap
 {
-    class Helpers
+    using System;
+    using System.IO;
+
+    public class Helpers
     {
         public static string CreateTempFileName(string extension = "", string prefix = "")
         {
