@@ -1,4 +1,32 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>dotnet-WireTap.WorkerService-8E003A1A-67E8-4DC1-8492-AFB91F58A92F</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="AForge" Version="2.2.5" />
+    <PackageReference Include="AForge.Video" Version="2.2.5" />
+    <PackageReference Include="AForge.Video.DirectShow" Version="2.2.5" />
+    <PackageReference Include="Costura" Version="3.2.2" />
+    <PackageReference Include="NAudio" Version="1.9.0" />
+    <PackageReference Include="System" />
+    <PackageReference Include="System.Core" />
+    <PackageReference Include="System.Drawing" />
+    <PackageReference Include="System.Speech" />
+    <PackageReference Include="System.Windows.Forms" />
+    <PackageReference Include="System.Xml.Linq" />
+    <PackageReference Include="System.Data.DataSetExtensions" />
+    <PackageReference Include="Microsoft.CSharp" />
+    <PackageReference Include="System.Data" />
+    <PackageReference Include="System.Xml" />
+  </ItemGroup>
+
+</Project>
+<!--
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CognitiveServices.Speech.1.2.0\build\Microsoft.CognitiveServices.Speech.props" Condition="Exists('..\packages\Microsoft.CognitiveServices.Speech.1.2.0\build\Microsoft.CognitiveServices.Speech.props')" />
   <Import Project="..\packages\Costura.Fody.3.2.2\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.3.2.2\build\Costura.Fody.props')" />
@@ -153,4 +181,4 @@
     <Error Condition="!Exists('..\packages\Costura.Fody.3.2.2\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.3.2.2\build\Costura.Fody.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CognitiveServices.Speech.1.2.0\build\Microsoft.CognitiveServices.Speech.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CognitiveServices.Speech.1.2.0\build\Microsoft.CognitiveServices.Speech.props'))" />
   </Target>
-</Project>
+</Project>-->
