@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WireTap", "WireTap\WireTap.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WireTap.WiindowsService2", "WireTap.WiindowsService2\WireTap.WiindowsService2.csproj", "{B97929FA-F487-4655-B579-10FDE301B788}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WireTap.Setup", "WireTap.Setup\WireTap.Setup.csproj", "{9F78AE47-138C-4E33-B023-7D416F56B7A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WireTap.Service", "WireTap.Service\WireTap.Service.csproj", "{3BDB0D63-2DCD-4032-A528-D94E869F4EE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{B97929FA-F487-4655-B579-10FDE301B788}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B97929FA-F487-4655-B579-10FDE301B788}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B97929FA-F487-4655-B579-10FDE301B788}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F78AE47-138C-4E33-B023-7D416F56B7A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F78AE47-138C-4E33-B023-7D416F56B7A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F78AE47-138C-4E33-B023-7D416F56B7A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F78AE47-138C-4E33-B023-7D416F56B7A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BDB0D63-2DCD-4032-A528-D94E869F4EE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BDB0D63-2DCD-4032-A528-D94E869F4EE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BDB0D63-2DCD-4032-A528-D94E869F4EE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BDB0D63-2DCD-4032-A528-D94E869F4EE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

