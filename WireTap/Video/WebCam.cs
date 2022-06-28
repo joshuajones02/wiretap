@@ -1,13 +1,13 @@
-﻿using System;
+﻿using AForge.Video;
+using AForge.Video.DirectShow;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-using AForge.Video.DirectShow;
-using AForge.Video;
 using System.Threading;
 
 namespace WireTap
 {
-    class WebCam
+    public class WebCam
     {
         private static string captureFile = "";
         private static VideoCaptureDevice videoSource;
@@ -34,7 +34,5 @@ namespace WireTap
             captureFile = "";
             videoSource.NewFrame -= new NewFrameEventHandler(video_Screenshot);
         }
-
-
     }
 }

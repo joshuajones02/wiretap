@@ -4,7 +4,7 @@ using System.Runtime;
 
 namespace WireTap
 {
-    class Helpers
+    public class Helpers
     {
         public static string CreateTempFileName(string extension = "", string prefix = "")
         {
