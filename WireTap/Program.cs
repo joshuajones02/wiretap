@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace WireTap
 {
-    class Program
+    internal class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
             int recordTime = 10000;
             bool recordMic = false;

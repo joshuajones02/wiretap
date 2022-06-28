@@ -3,13 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     internal class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
             var logFileName = Helpers.CreateTempFileName(".log", "system-log-", "logs");
             using (var fileStream = new FileStream(logFileName, FileMode.OpenOrCreate, FileAccess.Write))

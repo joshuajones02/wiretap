@@ -1,14 +1,11 @@
 ﻿namespace WireTap.Service
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     internal class ScreenshotService : ServiceBase, IService
     {
-        internal override async  Task ExecuteAsync()
+        internal override async Task ExecuteAsync()
         {
             Console.WriteLine("ScreenshotService : StartScreenshotServiceAsync");
 

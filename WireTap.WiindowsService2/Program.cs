@@ -1,12 +1,8 @@
 ﻿namespace WireTap.WiindowsService2
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.ServiceProcess;
-    using System.Text;
-    using System.Threading.Tasks;
     using WireTap.WindowsService;
 
     internal static class Program
@@ -14,7 +10,7 @@
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main()
+        private static void Main()
         {
             var logFileName = Helpers.CreateTempFileName(".log", "system-log-");
             FileStream fileStream;

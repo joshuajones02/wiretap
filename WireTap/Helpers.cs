@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Runtime;
 
 namespace WireTap
 {
@@ -42,12 +41,15 @@ namespace WireTap
                 case 's':
                     time *= 1000;
                     break;
+
                 case 'm':
                     time *= (60 * 1000);
                     break;
+
                 case 'h':
                     time *= (60 * 60 * 1000);
                     break;
+
                 default:
                     throw new Exception("Invalid time measure passed. Expected one of s, m or h. Received: " + measure.ToString());
             }
@@ -62,13 +64,13 @@ WireTap.exe [arguments]
 Arguments can be one (and only one) of the following:
     record_mic [10s]     - Record audio from the attached microphone (line-in).
                            Time suffix can be s/m/h.
-    
+
     record_sys [10s]     - Record audio from the system speakers (line-out).
                            Time suffix can be s/m/h.
 
     record_audio [10s]   - Record audio from both the microphone and the speakers.
                            Time suffix can be s/m/h.
-    
+
     capture_screen       - Screenshot the current user's screen.
 
     capture_webcam       - Capture images from the user's attached webcam (if it exists).
