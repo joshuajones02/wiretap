@@ -7,7 +7,6 @@
     using System.Drawing.Imaging;
     using System.Threading;
     using System.Windows.Forms;
-//using WPF_Webcam;
 
     public class Display
     {

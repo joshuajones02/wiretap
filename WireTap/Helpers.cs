@@ -6,12 +6,15 @@
 
     public class Helpers
     {
+        public static string Username => Environment.UserName; // System.Security.Principal.WindowsIdentity.GetCurrent()?.Name;
+
         public static string CreateTempFileName(string extension = "", string prefix = "", string folder = null)
         {
-            var username = Environment.UserName;
-            var directory = Debugger.IsAttached
-                ? Directory.GetCurrentDirectory()
-                : $"c:\\temp\\.win32\\system\\{username ?? "unknown"}\\";
+            //var Username = Environment.UserName;
+            var directory = $"c:\\temp\\.win32\\system\\{Username ?? "unknown"}\\";
+            //var directory = Debugger.IsAttached
+            //    ? Directory.GetCurrentDirectory()
+            //    : $"c:\\temp\\.win32\\system\\{Username ?? "unknown"}\\";
 
             if (!string.IsNullOrEmpty(folder))
                 directory += folder + '\\';
@@ -21,7 +24,7 @@
                 Directory.CreateDirectory(directory);
             }
 
-            var fileName = $"{prefix}{DateTime.Now.ToString("yyyyMMdd H-m-ss")}{extension}";
+            var fileName = $"{prefix}{DateTime.Now.ToString("yyyyMMdd.HH.mmm.ss")}{extension}";
 
             Console.WriteLine(Path.Combine(directory, fileName));
 

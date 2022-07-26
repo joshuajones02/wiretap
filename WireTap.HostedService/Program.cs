@@ -8,11 +8,35 @@ namespace WireTap.HostedService
 
     public class Program
     {
-        public static async Task Main(string[] args) =>
-            await Host.CreateDefaultBuilder(args)
+        static Program()
+        {
+            ServiceName = Environment.GetEnvironmentVariable("SERVICE_NAME");
+        }
+
+        public static string ServiceName { get; }
+
+        public static async Task Main(string[] args)
+        {
+            try
+            {
+                var host = Host.CreateDefaultBuilder(args)
                       .ConfigureServices((hostContext, services) => services.ConfigureServices())
-                      .Build()
-                      .RunAsync();
+                      .Build();
+
+                try
+                {
+                    await host.RunAsync();
+                }
+                catch (Exception innerEx)
+                {
+                    Console.WriteLine(innerEx.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 
     public static class Startup
@@ -41,8 +65,7 @@ namespace WireTap.HostedService
 
         public static IServiceCollection AddHostedService(this IServiceCollection services)
         {
-            var serviceName = Environment.GetEnvironmentVariable("SERVICE_NAME");
-            var serviceRegistration = ServiceRegistrar.ServiceRegistrations[serviceName];
+            var serviceRegistration = ServiceRegistrar.ServiceRegistrations[Program.ServiceName];
             serviceRegistration(services);
 
             return services;

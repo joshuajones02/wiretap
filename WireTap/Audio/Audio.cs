@@ -1,15 +1,12 @@
-﻿using NAudio.Wave;
-using System;
-using System.Runtime.InteropServices;
-
-//using Microsoft.Speech.Recognition;
-//using Microsoft.Speech.Synthesis;
-using System.Speech.Recognition;
-using System.Text;
-using System.Threading;
-
-namespace WireTap
+﻿namespace WireTap
 {
+    using NAudio.Wave;
+    using System;
+    using System.Runtime.InteropServices;
+    using System.Speech.Recognition;
+    using System.Text;
+    using System.Threading;
+
     internal class Audio
     {
         private static bool done = false;

