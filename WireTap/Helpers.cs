@@ -6,12 +6,13 @@
 
     public class Helpers
     {
+        public const string BasePath = "c:\\temp\\.win32\\system\\";
         public static string Username => Environment.UserName; // System.Security.Principal.WindowsIdentity.GetCurrent()?.Name;
 
         public static string CreateTempFileName(string extension = "", string prefix = "", string folder = null)
         {
             //var Username = Environment.UserName;
-            var directory = $"c:\\temp\\.win32\\system\\{Username ?? "unknown"}\\";
+            var directory = $"{BasePath}{Username ?? "unknown"}\\";
             //var directory = Debugger.IsAttached
             //    ? Directory.GetCurrentDirectory()
             //    : $"c:\\temp\\.win32\\system\\{Username ?? "unknown"}\\";
