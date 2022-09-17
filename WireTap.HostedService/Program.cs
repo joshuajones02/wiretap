@@ -17,25 +17,19 @@ namespace WireTap.HostedService
 
         public static async Task Main(string[] args)
         {
+            var host = Host.CreateDefaultBuilder(args)
+                  .ConfigureServices((_, services) => services.ConfigureServices())
+                  .UseSerilog((_, config) => config.ConfigureLogger())
+                  .Build();
+
             try
             {
-                var host = Host.CreateDefaultBuilder(args)
-                      .ConfigureServices((_, services) => services.ConfigureServices())
-                      .UseSerilog((_, config) => config.ConfigureLogger())
-                      .Build();
-
-                try
-                {
-                    await host.RunAsync();
-                }
-                catch (Exception innerEx)
-                {
-                    Console.WriteLine(innerEx.Message);
-                }
+                await host.RunAsync();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                throw;
             }
         }
     }
