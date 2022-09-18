@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <ApplicationIcon>wiretap.ico</ApplicationIcon>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>dotnet-WireTap.HostedService-C7268109-9AAB-4895-8585-165FCE04DE0C</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WireTap.Logging\WireTap.Logging.csproj" />
+    <ProjectReference Include="..\WireTap\WireTap.csproj" />
+  </ItemGroup>
+
+</Project>

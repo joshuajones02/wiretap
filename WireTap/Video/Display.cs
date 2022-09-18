@@ -1,18 +1,18 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Drawing;
-using System.Drawing.Imaging;
-using AForge.Video.DirectShow;
-using AForge.Video;
-using System.Threading;
-//using WPF_Webcam;
-
-namespace WireTap
+﻿namespace WireTap
 {
-    class Display
+    using AForge.Video;
+    using AForge.Video.DirectShow;
+    using System;
+    using System.Drawing;
+    using System.Drawing.Imaging;
+    using System.Threading;
+    using System.Windows.Forms;
+
+    public class Display
     {
         private static string captureFile = "";
         private static VideoCaptureDevice videoSource;
+
         public static void CaptureImage(string outFile)
         {
             Console.WriteLine("Capturing screenshot...");
