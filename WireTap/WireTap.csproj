@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WireTap.Logging\WireTap.Logging.csproj" />
+    <ProjectReference Include="..\WireTap.Logging\ParentalSight.Logging.csproj" />
   </ItemGroup>
 
 </Project>

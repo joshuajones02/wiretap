@@ -1,25 +1,25 @@
 namespace WireTap.HostedService
 {
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Hosting;
     using Serilog;
     using System;
+    using System.Diagnostics;
     using System.Threading.Tasks;
     using WireTap.Logging;
 
     public class Program
     {
-        static Program()
-        {
-            ServiceName = Environment.GetEnvironmentVariable("SERVICE_NAME");
-        }
+        public static string ServiceName { get; set; }
 
-        public static string ServiceName { get; }
+        public static IHostEnvironment HostEnvironment { get; set; }
 
         public static async Task Main(string[] args)
         {
             var host = Host.CreateDefaultBuilder(args)
-                  .ConfigureServices((_, services) => services.ConfigureServices())
-                  .UseSerilog((_, config) => config.ConfigureLogger())
+                  .ConfigureServices((context, services) => services.ConfigureServices(context.Configuration))
+                  .UseSerilog((_, config) => config.ConfigureLogger(Debugger.IsAttached ? "WireTap.log" : Helpers.CreateTempFileName("log", "service")))
+                  .UseWindowsService(options => options.ServiceName = "AAA001")
                   .Build();
 
             try

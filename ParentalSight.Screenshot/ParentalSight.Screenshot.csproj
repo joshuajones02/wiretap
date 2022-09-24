@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--<PackageReference Include="GI.Screenshot" Version="1.1.0" />-->
+    <PackageReference Include="H.Runners.ScreenshotRunner" Version="0.22.5.108" />
+    <!--<PackageReference Include="ScreenshotTaker" Version="1.0.2" />-->
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
+    <PackageReference Include="Xam.Plugin.Screenshot" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ParentalSight.Abstractions\ParentalSight.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

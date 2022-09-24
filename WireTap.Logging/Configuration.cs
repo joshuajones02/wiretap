@@ -6,15 +6,12 @@
 
     public static class Configuration
     {
-        public static void ConfigureLogger(this LoggerConfiguration config) =>
+        public static void ConfigureLogger(this LoggerConfiguration config, string path) =>
             config.MinimumLevel.Debug()
                   .Enrich.FromLogContext()
                   .Enrich.WithExceptionDetails()
                   .WriteTo.Async(x => x.Console())
                   .WriteTo.Async(x => x.Debug())
-                  .WriteTo.Async(x => x.File(
-                      path: "WireTap.log",
-                      rollingInterval: RollingInterval.Day,
-                      shared: Debugger.IsAttached));
+                  .WriteTo.Async(x => x.File(path, rollingInterval: RollingInterval.Day, shared: Debugger.IsAttached));
     }
 }

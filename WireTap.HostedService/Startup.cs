@@ -1,8 +1,10 @@
 ﻿namespace WireTap.HostedService
 {
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using WireTap.Logging;
 
     public static class Startup
@@ -22,18 +24,27 @@
             }
         }
 
-        public static IServiceCollection ConfigureServices(this IServiceCollection services)
+        public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration config)
         {
-            services.AddHostedService();
+            var serviceName = config.GetValue<string>("ENVIRONMENT");
+            services.AddHostedService(serviceName);
             services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
 
             return services;
         }
 
-        public static IServiceCollection AddHostedService(this IServiceCollection services)
+        public static IServiceCollection AddHostedService(this IServiceCollection services, string serviceName)
         {
-            var serviceRegistration = ServiceRegistrar.ServiceRegistrations[Program.ServiceName];
-            serviceRegistration(services);
+            //if (Debugger.IsAttached)
+            //{
+                var serviceRegistration = ServiceRegistrar.ServiceRegistrations[serviceName];
+                serviceRegistration(services);
+            //}
+            //else
+            //{
+            //    foreach (var registration in ServiceRegistrar.ServiceRegistrations)
+            //        registration.Value(services);
+            //}
 
             return services;
         }

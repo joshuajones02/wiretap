@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--<PackageReference Include="CaptureManager" Version="1.21.0" />-->
+    <PackageReference Include="FastWebcam-OpenCVSharp3" Version="1.0.1" />
+    <!--<PackageReference Include="Pranas.ScreenshotCapture" Version="1.0.11" />-->
+    <PackageReference Include="SeeShark" Version="3.1.0" />
+    <PackageReference Include="WebCamSharp" Version="1.0.0" />
+    <!--<PackageReference Include="WebEye.Stream" Version="1.0.2" />-->
+    <!--<PackageReference Include="WPFCap" Version="1.2.0" />-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ParentalSight.Abstractions\ParentalSight.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>
