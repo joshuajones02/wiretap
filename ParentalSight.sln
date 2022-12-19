@@ -11,13 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParentalSight.Common", "Wir
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParentalSight.Logging", "WireTap.Logging\ParentalSight.Logging.csproj", "{2A6B6985-A9BE-4BF0-9DD0-36EC2660D157}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParentalSight.Webcam", "ParentalSight.Webcam\ParentalSight.Webcam.csproj", "{93FC03EB-710D-4238-AF0F-F250C227CFBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParentalSight.Webcam", "ParentalSight.Webcam\ParentalSight.Webcam.csproj", "{93FC03EB-710D-4238-AF0F-F250C227CFBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParentalSight.Screenshot", "ParentalSight.Screenshot\ParentalSight.Screenshot.csproj", "{45D307A0-50C3-4773-8B28-6A276DEB152E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParentalSight.Screenshot", "ParentalSight.Screenshot\ParentalSight.Screenshot.csproj", "{45D307A0-50C3-4773-8B28-6A276DEB152E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParentalSight.Abstractions", "ParentalSight.Abstractions\ParentalSight.Abstractions.csproj", "{06E8E683-3D6A-41E0-9A8D-80A42BF1A55E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParentalSight.Abstractions", "ParentalSight.Abstractions\ParentalSight.Abstractions.csproj", "{06E8E683-3D6A-41E0-9A8D-80A42BF1A55E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParentalSight.Keyboard", "ParentalSight.Keyboard\ParentalSight.Keyboard.csproj", "{87C0BCDF-276C-4FBA-9D20-391B56FA6F36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParentalSight.Keyboard", "ParentalSight.Keyboard\ParentalSight.Keyboard.csproj", "{87C0BCDF-276C-4FBA-9D20-391B56FA6F36}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParentalSight.BackgroundService", "ParentalSight.BackgroundService\ParentalSight.BackgroundService.csproj", "{7E0F0AE4-5014-48A4-A298-F0C92CBBBF37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParentalSight.ScreenshotService", "src\ParentalSight.ScreenshotService\ParentalSight.ScreenshotService.csproj", "{FA250CCB-E8DC-4A84-B357-58598BDF35CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{87C0BCDF-276C-4FBA-9D20-391B56FA6F36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87C0BCDF-276C-4FBA-9D20-391B56FA6F36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87C0BCDF-276C-4FBA-9D20-391B56FA6F36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E0F0AE4-5014-48A4-A298-F0C92CBBBF37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E0F0AE4-5014-48A4-A298-F0C92CBBBF37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E0F0AE4-5014-48A4-A298-F0C92CBBBF37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E0F0AE4-5014-48A4-A298-F0C92CBBBF37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA250CCB-E8DC-4A84-B357-58598BDF35CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA250CCB-E8DC-4A84-B357-58598BDF35CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA250CCB-E8DC-4A84-B357-58598BDF35CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA250CCB-E8DC-4A84-B357-58598BDF35CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

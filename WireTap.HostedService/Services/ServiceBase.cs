@@ -20,13 +20,13 @@
 
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
-            var serviceName = Program.ServiceName;
-            var logFileName = Helpers.CreateTempFileName(".log", "system-log-", serviceName);
-            using (var fileStream = new FileStream(logFileName, FileMode.OpenOrCreate, FileAccess.Write))
-            using (var streamWriter = new StreamWriter(fileStream))
-            {
-                var dateTime = DateTime.Now;
-                Console.SetOut(streamWriter);
+                var serviceName = Program.ServiceName;
+                var logFileName = Helpers.CreateTempFileName(".log", "system-log-", serviceName);
+                using (var fileStream = new FileStream(logFileName, FileMode.OpenOrCreate, FileAccess.Write))
+                using (var streamWriter = new StreamWriter(fileStream))
+                {
+                    var dateTime = DateTime.Now;
+                    Console.SetOut(streamWriter);
                 Console.WriteLine($"Starting WireTap Services at {dateTime.ToShortDateString()} {dateTime.ToShortTimeString()}");
                 _logger.LogInformation($"Starting WireTap Services at {dateTime.ToShortDateString()} {dateTime.ToShortTimeString()}");
 
